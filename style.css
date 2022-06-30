@@ -1,18 +1,123 @@
 /*****************************
     FLEXBOX
-------------------------------
+****************************/
 
-    CONOCEPTOS BÁSICOS
-    ------------------
-    La propiedad display define que una caja será flexbox
-    de bloque o flexbox de línea.
+/********************
+CONOCEPTOS BÁSICOS
+---------------------
+- Contenedor Padre (Flex Container)
+- Elementos Hijos (Flex Items)
+- Eje Principal (Main Axis)
+- Eje Transversal (Cross Axis)
+*/
 
-    display: flex | inline-flex;
+/**********************************
+PROPIEDADES DEL CONTENEDOR PADRE
+-----------------------------------
+display -   Define que una caja será flexbox de bloque o flexbox de línea
+    display: flex; - Flexbox de bloque
+    display: inline-flex -  Flexbox de línea
+----------------------------------------------------------------------------
+Flujo de Flexbox (flow)
 
-    IMPORTANTE: Flexbox es un sistema UNIDIMENSIONAL. Es decir,
-    tenemos puras filas o puras columnas. Eso lo va a determinar
-    la propiedad flex-direction.
-    */
+flex-direction: row;
+--------------------
+Define la dirección del eje principal (main axis)
+
+row             -   Predeterminado. Alinea los elementos en fila
+row-reverse     -   Invierte las filas
+column          -   Alinea los elementos en columnas
+column-reverse  -   Invierte las columnas
+
+
+flex-wrap: nowrap;
+------------------
+Define si la caja envuelve O NO a sus hijos.
+
+nowrap  -   Predeterminado. Respeta los tamaños definidos. Envía los
+            elementos a la siguiente línea, pues no los envuelve.
+
+wrap    -   Todos los elementos en una sola fila. Si el viewport disminu-
+            ye, intentará mostrar todos los elementos. Sino, agrega una
+            barra de scroll. Si el elemento tiene ancho y alto definidos,
+            pueden ser ignorados por ser un contenedor flexbox que
+            envuelve a sus elementos hijos.
+----------------------------------------------------------------------------
+Alineación respecto del main axis
+
+justify-content: start;
+----------------------------
+Define la alineación de los elementos hijos en el eje principal.
+
+start   -   Predeterminado. Alinea los elementos al comienzo del contenedor.
+
+center  -   Alinea los elementos al centro del contenedor.
+
+end     -   Alinea los elementos al final del contenedor.
+
+space-between   -   Ignora las orillas del contenedor y los epacios sobran-
+                    tes se reparten entre los elementos hijos. Los elemen-
+                    tos son distribuidos en la línea uniformemente.
+
+space-around    -   Los elementos se distribuyen uniformemente en la línea
+                    con igual espacio alrededor.
+
+space-evenly    -   Los elementos se distribuyen de manera que el espacio
+                    entre dos elementos sea igual.
+----------------------------------------------------------------------------
+Alineación respecto del cross axis
+
+align-items: stretch;
+---------------------
+Alinea las líneas respecto del eje transversal.
+
+stretch -   Predeterminado. Estira hasta llenar el contenedor. Respeta las
+            propiedades max-width y max-height.
+
+flex-start | start | self-start ->
+            Los elementos se colocan al principio del eje transversal.
+            La diferencia entre estos es sutil y se trata de respetar las
+            reglas de flex-direction y writing-mode.
+
+flex-end | end | self-end ->
+            Los elementos se colocan al final del eje transversal. Respetan
+            las reglas de flex-direction y writing-mode.
+
+center      -   Los elementos son alineados en el eje transversal.
+
+baseline    -   Los elementosestán alineados como se alinean sus líneas
+                base (en la base del texto).
+
+align-content: stretch;
+--------------------------
+Define la alineación de los hijos en el eje transversal. NO FUNCIONA cuando
+los hijos están en UNA sola línea. Es decir, cuando flex-wrap: nowrap, 
+NO FUNCIONA.
+
+stretch             -   Predeterminado. las líneas se estiran para ocupar el
+                        espacio restante.
+
+normal              -   Los articulos se alinean en su
+                        posición predeterminada.
+
+flex-start | start  -   los elementos se alinean al inicio del contenedor.
+                        flex-start respeta la flex-direction. En cambio,
+                        start respeta writing mode.
+
+flex-end | end      -   Elementos alineados al final del contenedor.
+center              -   Elementos centrados en el contenedor.
+
+space-between       -   Elementos distribuidos uniformemente, la primera
+                        línea está al principio del contenedor, mientras que
+                        la última está al final.
+
+space-around        -   Elementos distribuidos uniformemente con el mis-
+                        mo espacio alrededor de cada línea.
+
+space-evenly        -   Los elementos se distribuyen uniformemente con
+                        el mismo espacio a su alrededor.
+----------------------------------------------------------------------------
+*/
 
 *,
 *::before,
@@ -28,72 +133,27 @@
     display: flex;
     display: inline-flex;
 
-
-    /**********************
-    Flujo de Flexbox (flow)
-
-    flex-direction: row;
-    --------------------
-    Define la dirección del eje principal
-    -   row -   Predeterminado. Alinea los elementos horizon-
-        talmente (filas).
-    -   row-reverse -   Invierte las filas
-    -   column -    Alinea los elementos verticalmente (colum-
-        nas).
-    -   column-reverse -    Invierte las columnas
-
-    flex-wrap: nowrap;
-    ------------------
-    Define si la caja envuelve o no a sus hijos.
-    - nowrap -  Predeterminado. Respeta los tamaños definidos.
-                Envía los elementos a la siguiente línea
-                (no envuelve a sus hijos).
-    - wrap -    Todos los elementos en una sola fila. Si el
-                viewport disminuye, se intentará mostrar todos
-                los elementos. Sino, agrega una barra de scroll.
-    Si el elemento tiene ancho y alto definidos,
-    pueden ser ignorados por ser un contenedor
-    flexbox. (envuelve a sus hijos).
-    */
-    
+    /*
+    Dirección respecto del main axis
+*/
     flex-direction: row;
     flex-direction: row-reverse;
     flex-direction: column;
     flex-direction: column-reverse;
 
+    /*
+    Flujo de Flexbox
+*/
     flex-wrap: wrap;
     flex-wrap: nowrap;
     flex-wrap: wrap-reverse;
 
-/*
-    Un shorthand es flex-flow, donde su primer valor es para
-    la direccion y el segundo para wrap.
-    -   flex-flow: column nowrap;
-*/
-
+/*SHORTHAND DE flex-direction y flex-wrap*/
     flex-flow: row wrap;
     flex-flow: column wrap;
 
-    /******************************************************
-    ALINEACIÓN del contenido RESPECTO AL EJE PRINCIPAL
-    -------------------------------------------------------
-    La alineación es si sobra espacio
-
-    justify-content: start;
-    ----------------------
-    -start -    Predeterminado, alinea los elementos al comienzo
-                del contenedor).
-    -center -   Alinea los elementos al centro del contenedor
-    -end -  Alinea los elementos al final del contenedor
-    -space-between -    Ignora los orillas de la caja contene-
-                        dora y los espacios sobrantes se repar-
-                        ten entre los elementos hijos. Los ele-
-                        mentos son distribuidos en la linea
-                        uniformemente.
-    -space-around - Los elementos se distribuyen uniformemente
-                    en la linea con el mismo espacio alrededor.
-    -space-evenly - Los elementos se distribuyen de modo que
-                    el espacio entre dos elementos sea igual.
+    /*
+    Alineación respecto del EJE PRINCIPAL
 */
 
     justify-content: start;
@@ -103,29 +163,8 @@
     justify-content: space-around;
     justify-content: space-evenly;
 
-    /***************************************
-    ALINEACIÓN respecto del EJE TRANSVERSAL
-    ----------------------------------------
-
-    align-items: stretch;
-    ---------------------
-    Alinea cada una de las lineas
-    -stretch -  Por defecto, estira hasta llenar el contenedor
-                (respeta max-width y max-height.
-    -flex-start | start | self-start -   Los elementos se colocan
-                                        al principio del eje
-                                        transversal. La diferencia
-                                        entre estos es sutil y
-                                        se trata de respetar las
-                                        reglas de flex-direction
-                                        y writing-mode.
-    -flex-end / end / self-end -    Los elementos se colocan al
-                                    final del eje transversal.
-                                    Respeta las reglas de
-                                    flex-direction y writing-mode.
-    -center -   Los elementos están alineados en el eje transversal.
-    -baseline - Los elementos están alineados como sus líneas base
-                se alinean (base del texto).   
+    /*
+    Alineación respecto del EJE TRANSVERSAL
 */
 
     align-items: stretch;
@@ -135,30 +174,6 @@
     align-items: space-between;
     align-items: space-around;
     align-items: space-evenly;
-
-/*
-    align-content: normal;
-    ----------------------
-    Alinea todo el contenido como un todo. No funciona cuando
-    los hijos están en una sola línea (wrap: nowrap).
-
-    -normal -   Predeterminado, los articulos se alinean en su posi-
-                ción predeterminada.
-    -flex-start | start -   los elementos se alinean al inicio del
-                            contenedor. flex-start respeta la
-                            flex-direction mientras que start
-                            respeta writing mode.
-    -flex-end | end -   Elementos alineados al final del contenedor.
-    -center -   Elementos centrados en el contenedor.
-    -space-between -    Elementos distribuidos uniformemente, la
-                        primera línea está al principio del conte-
-                        nedor, mientras que la última está al final.
-    -space-around - Elementos distribuidos uniformemente con el mis-
-                    mo espacio alrededor de cada línea.
-    -space-evenly - Los elementos se distribuyen uniformemente con
-                    el mismo espacio a su alrededor.
-    -stretch -  las líneas se estiran para ocupar el espacio restante.
-*/
 
     align-content: stretch;
     align-content: normal;
@@ -172,9 +187,8 @@
     align-content: space-evenly;
 
     /*
-        Reiniciando valores de Flexbox
-        ------------------------------
-    */
+    Reiniciando valores de Flexbox
+*/
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -184,124 +198,117 @@
     align-content: flex-start;
 }
 
+/**********************************
+PROPIEDADES DE ELEMENTOS HIJOS
+-----------------------------------
+Factor de Crecimiento
+
+flex-grow: 0;
+-------------
+
+Define la capacidad de crecimiento de un elemento flexible si es necesario.
+Acepta un valor sin unidades que sirve como proporción. Determina qué can-
+tidad de espacio disponible dentro del contenedor flexible debe ocupar el
+elemento.
+    
+Si todos los elementos flex-grow se han establecido en 1, el espacio res-
+tante del contenedor se distribuirá por igual a todos los hijos. Si uno
+de los hijos tiene un valor de 2, ese hijo ocuparía el doble de espacio que
+cualquiera de los otros (o lo intentará, al menos).
+    
+Los números negativos no son válidos.
+
+    Por ejemplo, si el contenedor tiene un width: 1000px y tenemos 3 ele-
+    mentos de con un width: 100px c/u, el espacio sobrante es de 700px.
+    Ahora, si los elementos tienen un flex-grow: 1, esto significa que el
+    espacio de 700px se va a distribuir entre los 3 elementos. Esto es
+    700px/3 = 233.3px c/u.
+
+    Si uno de los elementos tiene un flex-grow: 2, esto significa que
+    700px/4 = 175px; 175px*2 = 350px. Esto significa que de esos 700px,
+    un elemento obtendrá 350 mientras que los otros dos obtendrán 175px.
+
+    Como resultado final, 2 elementos tendrán un width de 275px y el restan-
+    te tendrá un width de 450px (cada elemento tenía un width: 100px ini-
+    cialmente).
+
+flex-shrink: 1;
+---------------
+Esto define la capacidad para que un elemento se encoja si es necesario.
+Esto es, cuando la caja contenedora ya no tenga espacio sobrante.
+    
+Los números negativos no son válidos.
+
+    Por ejemplo, si seteamos que los elementos tengan un
+    flex-shrink: 0, los elementos dejarán de encogerse,
+    por lo tanto si encogemos el viewport, éstos manten-
+    drán su tamaño y se generará una barra de scroll.
+
+    Si, en cambio, seteamos que un elemento tenga un flex-shrink: 2, dicho
+    elemento se encogerá el doble que los elementos restantes a la hora de
+    encoger el viewport. Esto es por ejemplo:
+
+        width original contenedor: 239.1px
+        width resultante contenedor: 225px
+
+        width reducido contenedor: 14.31px
+
+        width original de 3 elementos: 79.77px
+
+        un elemento tiene flex-shrink:2
+
+        width reducido de 2 elementos: 3.57px
+        width reducido elemento restante: 3.57px*2
+
+        width resultante de 2 elementos: 76.2px
+        width resultante elemento restante: 72.63px
+
+flex-basis: auto;
+-----------------
+Define el tamaño por defecto de un elemento antes de que el espacio restante
+sea distribuído. Puede ser una longitud (20%, 5rem, etc.) o una keyword. La
+keyword auto significa "mira a mi propiedad de anchura o altura".
+    -   si la caja flexbox tiene dirección de fila, flex-basis representa el
+        width.
+    -   si la caja flexbox tiene direccion de columna, flex-basis representa
+        el height.
+
+Para flexbox, flex-basis tiene mayor especificidad que width o height.
+
+Por ejemplo:
+
+    .container {
+        flex-flow: row nowrap;
+    }
+
+    .item {
+        flex-basis: 100px
+    }
+
+    El elemento tendrá un width de 100 px.
+
+    .container {
+        flex-flow: column nowrap;
+    }
+
+    .item {
+        flex-basis: 100px;
+    }
+
+    El elemento tendrá un height de 100px.
+
+*/
+
 .item {
     background-color: #666;
     border: medium solid #999;
     /* width: 100px; */
 
-    /********************
-    Factor de Crecimiento
-    ---------------------
-    
-    flex-grow: 0;
-    ---------
-    Define la capacidad de crecimiento de un elemento
-    flexible si es necesario. Acepta un valor sin unidades
-    que sirve como proporción. Determina qué cantidad de
-    espacio disponible dentro del contenedor flexible debe
-    ocupar el elemento.
-    
-    Si todos los elementos flex-grow se han establecido en 1,
-    el espacio restante del contenedor se distribuirá por 
-    igual a todos los hijos. Si uno de los hijos tiene un
-    valor de 2, ese hijo ocuparía el doble de espacio que
-    cualquiera de los otros (o lo intentará, al menos).
-    
-    Los números negativos no son válidos.
-
-        Por ejemplo, si el contenedor tiene un width: 1000px
-        y tenemos 3 elementos de con un width: 100px c/u, el
-        espacio sobrante es de 700px.
-        Ahora, si los elementos tienen un flex-grow: 1, esto
-        significa que el espacio de 700px se va a distribuir
-        entre los 3 elementos. Esto es 700px/3 = 233.3px c/u.
-
-        Si uno de los elementos tiene un flex-grow: 2, esto
-        significa que 700px/4 = 175px; 175px*2 = 350px. Esto
-        significa que de esos 700px, un elemento obtendrá 350
-        mientras que los otros dos obtendrán 175px.
-
-        Como resultado final, 2 elementos tendrán un width de
-        275px y el restante tendrá un width de 450px (cada
-        elemento tenía un width: 100px inicialmente).
-
-    ---------------------------------------------------------
-    
-    flex-shrink: 1;
-    -----------
-    Esto define la capacidad para que un elemento se encoja
-    si es necesario. Esto es, cuando la caja contenedora ya
-    no tenga espacio sobrante.
-    
-    Los números negativos no son válidos.
-
-        Por ejemplo, si seteamos que los elementos tengan un
-        flex-shrink: 0, los elementos dejarán de encogerse,
-        por lo tanto si encogemos el viewport, éstos manten-
-        drán su tamaño y se generará una barra de scroll.
-
-        Si, en cambio, seteamos que un elemento tenga un
-        flex-shrink: 2, dicho elemento se encogerá el doble
-        que los elementos restantes a la hora de encoger el
-        viewport. Esto es por ejemplo:
-            width original contenedor: 239.1px
-            width resultante contenedor: 225px
-
-            width reducido contenedor: 14.31px
-
-            width original de 3 elementos: 79.77px
-
-            un elemento tiene flex-shrink:2
-
-            width reducido de 2 elementos: 3.57px
-            width reducido elemento restante: 3.57px*2
-
-            width resultante de 2 elementos: 76.2px
-            width resultante elemento restante: 72.63px
-    ---------------------------------------------------------
-    
-    flex-basis: auto;
-    ----------
-    Esto define el tamaño por defecto de un elemento antes de
-    que el espacio restante sea distribuído. Puede ser una
-    longitud (20%, 5rem, etc.) o una keyword. La keyword auto
-    significa "mira a mi propiedad de anchura o altura".
-    -   si la caja flexbox tiene dirección de fila, flex-basis
-        representa el width.
-    -   si la caja flexbox tiene direccion de columna,
-        flex-basis representa el height.
-    
-    Para flexbox, flex-basis tiene mayor especificidad que
-    width o height.
-
-        Por ejemplo:
-        .container {
-            flex-flow: row nowrap;
-        }
-
-        .item {
-            flex-basis: 100px
-        }
-
-        El elemento tendrá un width de 100 px.
-
-        .container {
-            flex-flow: column nowrap;
-        }
-
-        .item {
-            flex-basis: 100px;
-        }
-
-        El elemento tendrá un height de 100px.
-    ---------------------------------------------------------
-    */
-
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
 
-    /*SHORTHAND*/
+    /*SHORTHAND de flex-grow, flex-shrink y flex-basis*/
     flex: 0 1 auto;
 }
 
